@@ -1,0 +1,21 @@
+{
+  "name": "bilder-requirejs",
+  "version": "0.0.1",
+  "description": "requirejs grunt task",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wunderbits/bilder-requirejs.git"
+  },
+  "keywords": [
+    "build",
+    "requirejs"
+  ],
+  "contributors": [
+    "Aditya <aditya@netroy.in>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "requirejs": "2.1.10",
+    "uglify-js": "2.4.12"
+  }
+}
