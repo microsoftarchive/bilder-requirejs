@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   'use strict';
 
-  var requirejs = require('requirejs');
+  var requirejs = require('requirejs/bin/r');
   var compress = require('../lib/compress');
 
   var path = require('path');
@@ -44,7 +44,10 @@ module.exports = function(grunt) {
     // make paths absolute, to be able to include files outside the base directory
     var paths = options.paths = options.paths || {};
     _.each(paths, function (path, key) {
-      paths[key] = resolve(join(options.baseUrl, path));
+      if (path !== 'empty:') {
+        path = join(options.baseUrl, path);
+        paths[key] = resolve(path);
+      }
     });
 
     // make the out-file path absolute too
