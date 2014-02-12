@@ -17,29 +17,28 @@ module.exports = function(grunt) {
     'baseUrl': 'public',
     'buildDir': 'build',
     'useSourceUrl': true,
+    'twoFiles': false,
     'optimize': 'none',
     'compress': false
   };
 
-  function onBuildRead (name, path, contents ) {
-    return compress(contents);
-  }
-
   function RequireJSCompilerTask() {
 
+    // target name
+    var target = this.target;
+
     // Async task
-    var done = this.async();
+    var finish = this.async();
+    var done = function () {
+      grunt.log.writeln('\u2714'.green, target);
+      setImmediate(finish);
+    };
 
     // Options
-    var target = this.target;
     var options = this.options(defaults);
 
     // for debugging
     grunt.verbose.writeflags(options, 'Options');
-
-    if (options.compress) {
-      options.onBuildRead = onBuildRead;
-    }
 
     // make paths absolute, to be able to include files outside the base directory
     var paths = options.paths = options.paths || {};
@@ -59,8 +58,17 @@ module.exports = function(grunt) {
 
     // Optimize
     requirejs.optimize(options, function () {
-      grunt.log.writeln('\u2714'.green, target);
-      process.nextTick(done);
+      // if compression flag was set, generate a '.min.js' file
+      if (options.compress) {
+        var outFile = options.out;
+        var minFile = outFile;
+        if (options.twoFiles) {
+          minFile = outFile.replace(/\.js$/, '.min.js');
+        }
+        grunt.file.write(minFile, compress(grunt.file.read(outFile)));
+      }
+      // wrap up
+      done();
     });
   }
 
