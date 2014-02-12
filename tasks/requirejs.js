@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     'baseUrl': 'public',
     'buildDir': 'build',
     'useSourceUrl': true,
-    'optimize': 'uglify2'
+    'optimize': 'none',
+    'compress': false
   };
 
   function onBuildRead (name, path, contents ) {
