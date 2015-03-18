@@ -10,12 +10,9 @@
     "build",
     "requirejs"
   ],
-  "contributors": [
-    "Aditya <aditya@netroy.in>"
-  ],
   "license": "MIT",
   "dependencies": {
-    "requirejs": "2.1.10",
-    "uglify-js": "2.4.12"
+    "requirejs": "2.1.16",
+    "uglify-js": "2.4.17"
   }
 }
